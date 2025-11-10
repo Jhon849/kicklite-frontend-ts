@@ -1,123 +1,74 @@
 import React from 'react';
-import StreamCard from '../../components/home/StreamCard';
-import CategoryGrid from '../../components/home/CategoryGrid';
 import FeaturedStream from '../../components/home/FeaturedStream';
-import LiveChat from '../../components/stream/LiveChat';
-import { useAuth } from '../../context/AuthContext';
+import CategoriesGrid from '../../components/home/CategoriesGrid';
+import StreamCard from '../../components/home/StreamCard';
+import { Stream } from '../../types/stream.types';
 
-interface Stream {
-  id: string;
-  title: string;
-  thumbnailUrl: string;
-  viewerCount: number;
-  isLive: boolean;
-  category: string;
-  streamer: {
-    id: string;
-    username: string;
-    avatarUrl: string;
-  };
-}
-
-const sampleStreams: Stream[] = [
+const liveChannels: Stream[] = [
   {
-    id: '1',
-    title: 'Late Night Gaming Session 🎮',
-    thumbnailUrl: '/images/thumbnails/stream1.jpg',
-    viewerCount: 1543,
+    id: 'live-1',
+    title: 'Building a real-time chat app with Socket.IO',
+    thumbnailUrl: 'https://picsum.photos/640/360?random=dev1',
+    viewerCount: 1250,
     isLive: true,
-    category: 'League of Legends',
+    category: 'Software Development',
     streamer: {
-      id: '1',
+      id: 'user-1',
+      username: 'CodeWizard',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=codewizard'
+    }
+  },
+  {
+    id: 'live-2',
+    title: 'Exploring the new features in React 19',
+    thumbnailUrl: 'https://picsum.photos/640/360?random=dev2',
+    viewerCount: 890,
+    isLive: true,
+    category: 'React',
+    streamer: {
+      id: 'user-2',
+      username: 'ReactFanatic',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=reactfanatic'
+    }
+  },
+  {
+    id: 'live-3',
+    title: 'Live designing a modern UI Kit in Figma',
+    thumbnailUrl: 'https://picsum.photos/640/360?random=design1',
+    viewerCount: 2100,
+    isLive: true,
+    category: 'UI/UX Design',
+    streamer: {
+      id: 'user-3',
+      username: 'DesignGuru',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=designguru'
+    }
+  },
+  {
+    id: 'live-4',
+    title: 'Playing the new season of "Cosmic Rift"',
+    thumbnailUrl: 'https://picsum.photos/640/360?random=game1',
+    viewerCount: 15000,
+    isLive: true,
+    category: 'Cosmic Rift',
+    streamer: {
+      id: 'user-4',
       username: 'ProGamer',
-      avatarUrl: '/images/avatars/user1.jpg'
-    }
-  },
-  {
-    id: '2',
-    title: 'Ranked Matches with Viewers!',
-    thumbnailUrl: '/images/thumbnails/stream2.jpg',
-    viewerCount: 892,
-    isLive: true,
-    category: 'Valorant',
-    streamer: {
-      id: '2',
-      username: 'AimQueen',
-      avatarUrl: '/images/avatars/user2.jpg'
-    }
-  },
-  {
-    id: '3',
-    title: 'Just Chatting with Community',
-    thumbnailUrl: '/images/thumbnails/stream3.jpg',
-    viewerCount: 2103,
-    isLive: true,
-    category: 'Just Chatting',
-    streamer: {
-      id: '3',
-      username: 'StreamerPro',
-      avatarUrl: '/images/avatars/user3.jpg'
-    }
-  },
-  {
-    id: '4',
-    title: 'Building a Game in Unity!',
-    thumbnailUrl: '/images/thumbnails/stream4.jpg',
-    viewerCount: 456,
-    isLive: true,
-    category: 'Game Development',
-    streamer: {
-      id: '4',
-      username: 'CodeMaster',
-      avatarUrl: '/images/avatars/user4.jpg'
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=progamer'
     }
   }
 ];
 
 const Home: React.FC = () => {
-  const { isAuthenticated } = useAuth();
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Featured Stream with Chat */}
-      <section className="mb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <FeaturedStream />
-          </div>
-          <div className="hidden lg:block">
-            <LiveChat />
-          </div>
-        </div>
-      </section>
-
-      {/* Live Channels Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-white">Live Channels</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {sampleStreams.map((stream) => (
-            <StreamCard key={stream.id} stream={stream} />
-          ))}
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-white">Browse Categories</h2>
-        <CategoryGrid />
-      </section>
-
-      {/* Recommended Channels */}
-      {isAuthenticated && (
-        <section>
-          <h2 className="text-2xl font-bold mb-6 text-white">Recommended for You</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {sampleStreams.slice(0, 2).map((stream) => (
-              <StreamCard key={stream.id} stream={stream} />
-            ))}
-          </div>
-        </section>
-      )}
+    <div className="p-8">
+      <FeaturedStream stream={liveChannels[0]} />
+      <CategoriesGrid />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {liveChannels.map((stream) => (
+          <StreamCard key={stream.id} stream={stream} />
+        ))}
+      </div>
     </div>
   );
 };

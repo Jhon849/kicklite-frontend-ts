@@ -16,25 +16,25 @@ const defaultCategories: Category[] = [
   {
     id: '1',
     name: 'League of Legends',
-    imageUrl: '/images/categories/lol.jpg',
+    imageUrl: 'https://picsum.photos/300/200?random=lol',
     viewers: 250000
   },
   {
     id: '2',
     name: 'Just Chatting',
-    imageUrl: '/images/categories/just-chatting.jpg',
+    imageUrl: 'https://picsum.photos/300/200?random=chatting',
     viewers: 180000
   },
   {
     id: '3',
     name: 'Valorant',
-    imageUrl: '/images/categories/valorant.jpg',
+    imageUrl: 'https://picsum.photos/300/200?random=valorant',
     viewers: 120000
   },
   {
     id: '4',
     name: 'Counter-Strike 2',
-    imageUrl: '/images/categories/cs2.jpg',
+    imageUrl: 'https://picsum.photos/300/200?random=cs2',
     viewers: 95000
   }
 ];
@@ -57,6 +57,9 @@ export default function CategoriesGrid({ categories = defaultCategories }: Categ
               src={category.imageUrl}
               alt={category.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x200?text=' + category.name;
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </motion.div>

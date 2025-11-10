@@ -23,22 +23,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadStoredData = async () => {
-      const storedToken = localStorage.getItem('token');
-      
-      if (storedToken) {
-        try {
-          const response = await api.get('/auth/me');
-          setUser(response.data);
-        } catch (error) {
-          localStorage.removeItem('token');
-        }
-      }
-      
+    const timer = setTimeout(() => {
       setLoading(false);
-    };
+    }, 500); // Simulate loading for 500ms
 
-    loadStoredData();
+    return () => clearTimeout(timer);
   }, []);
 
   const signIn = async (email: string, password: string) => {
