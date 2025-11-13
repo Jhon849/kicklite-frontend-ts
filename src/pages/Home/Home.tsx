@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Play, TrendingUp, Users, Sparkles, Eye, Radio, Heart, UserPlus, Gamepad2, Flame, Crown, ArrowRight } from 'lucide-react';
+import { Play, TrendingUp, Users, Sparkles, Eye, Radio, Heart, UserPlus, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   return (
